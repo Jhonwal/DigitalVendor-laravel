@@ -13,16 +13,18 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->text('description');
             $table->decimal('price', 10, 2);
             $table->string('file_path')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('preview_images')->nullable();
             $table->integer('sales_count')->default(0);
-            $table->boolean('is_published')->default(true);
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
