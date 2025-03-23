@@ -1,330 +1,221 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Digital Marketplace - Your one-stop shop for premium digital products">
-    <meta name="keywords" content="digital products, templates, software, e-books, digital marketplace">
-    
-    <title>{{ config('app.name', 'Digital Marketplace') }} | @yield('title', 'Home')</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    
-    <!-- Custom Styles -->
-    <style>
-        :root {
-            --primary: #FF5722;
-            --primary-dark: #E64A19;
-            --primary-light: #FFCCBC;
-            --secondary: #2196F3;
-            --dark: #212121;
-            --light: #F5F5F5;
-            --success: #4CAF50;
-            --danger: #F44336;
-            --warning: #FFC107;
-            --info: #00BCD4;
-            --bs-primary: var(--primary);
-            --bs-primary-rgb: 255, 87, 34;
-        }
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>@yield('title', config('app.name', 'Digital Marketplace'))</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700&display=swap" rel="stylesheet" />
         
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-            background-color: #f8f9fa;
-        }
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         
-        .bg-primary {
-            background-color: var(--primary) !important;
-        }
-        
-        .text-primary {
-            color: var(--primary) !important;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-            border-color: var(--primary);
-        }
-        
-        .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-            background-color: var(--primary-dark) !important;
-            border-color: var(--primary-dark) !important;
-        }
-        
-        .btn-outline-primary {
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-        
-        .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
-            background-color: var(--primary) !important;
-            border-color: var(--primary) !important;
-            color: white !important;
-        }
-        
-        /* Navbar Styles */
-        .navbar {
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-        
-        .nav-link {
-            font-weight: 500;
-            padding: 0.5rem 1rem !important;
-        }
-        
-        /* Card Styles */
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Badge Styles */
-        .badge {
-            font-weight: 500;
-            padding: 0.5em 1em;
-        }
-        
-        /* Button Styles */
-        .btn {
-            font-weight: 500;
-            padding: 0.5rem 1.5rem;
-            border-radius: 5px;
-        }
-        
-        /* Footer Styles */
-        footer {
-            background: #212121;
-            color: #fff;
-        }
-        
-        footer a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        footer a:hover {
-            color: var(--primary-light);
-        }
-        
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .social-icons a:hover {
-            background-color: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        /* Responsive Typography */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <style>
+            :root {
+                --primary: #FF5722;
+                --secondary: #2196F3;
+                --success: #4CAF50;
+                --danger: #F44336;
+                --warning: #FFC107;
+                --info: #00BCD4;
+                --light: #F5F5F5;
+                --dark: #333333;
             }
-            h2 {
-                font-size: 1.7rem;
+            
+            body {
+                font-family: 'Poppins', sans-serif;
+                background-color: #F5F5F5;
+                color: #333333;
             }
-            h3 {
-                font-size: 1.4rem;
+            
+            .navbar-brand {
+                font-weight: 600;
             }
-        }
-        
-        /* Background Gradient */
-        .bg-gradient-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        }
-    </style>
-    
-    @stack('styles')
-</head>
-<body>
-    <!-- Header -->
-    <header class="sticky-top">
-        @include('layouts.navigation')
-    </header>
-    
-    <!-- Main Content -->
-    <main>
-        <!-- Alert Messages -->
-        @if (session('success'))
-        <div class="container mt-4">
-            <div class="alert alert-success alert-dismissible fade show shadow-sm rounded-lg" role="alert">
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-check-circle-fill me-2 fs-4"></i>
-                    <strong>{{ session('success') }}</strong>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
-        @endif
-        
-        @if (session('error'))
-        <div class="container mt-4">
-            <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-lg" role="alert">
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
-                    <strong>{{ session('error') }}</strong>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
-        @endif
-        
-        @yield('content')
-    </main>
-    
-    <!-- Footer -->
-    <footer class="mt-5 pt-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="mb-4">
-                        <a href="{{ route('home') }}" class="d-inline-flex align-items-center text-white text-decoration-none mb-3">
-                            <i class="bi bi-box-seam fs-3 me-2"></i>
-                            <span class="fs-4 fw-bold">Digital Marketplace</span>
-                        </a>
-                        <p class="text-muted mb-4">Your one-stop shop for premium digital products created by talented designers and developers around the world.</p>
-                        <div class="social-icons d-flex gap-2">
-                            <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="me-2"><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-2 col-md-6">
-                    <h5 class="text-white fw-bold mb-4">Quick Links</h5>
-                    <ul class="list-unstyled footer-links">
-                        <li class="mb-2"><a href="{{ route('home') }}" class="text-decoration-none"><i class="bi bi-chevron-right me-1 small"></i> Home</a></li>
-                        <li class="mb-2"><a href="{{ route('products.index') }}" class="text-decoration-none"><i class="bi bi-chevron-right me-1 small"></i> Products</a></li>
-                        <li class="mb-2"><a href="{{ route('cart.index') }}" class="text-decoration-none"><i class="bi bi-chevron-right me-1 small"></i> Cart</a></li>
-                        @auth
-                            <li class="mb-2"><a href="{{ route('dashboard') }}" class="text-decoration-none"><i class="bi bi-chevron-right me-1 small"></i> Dashboard</a></li>
-                            <li class="mb-2"><a href="{{ route('orders.index') }}" class="text-decoration-none"><i class="bi bi-chevron-right me-1 small"></i> My Orders</a></li>
-                        @else
-                            <li class="mb-2"><a href="{{ route('login') }}" class="text-decoration-none"><i class="bi bi-chevron-right me-1 small"></i> Login</a></li>
-                            <li class="mb-2"><a href="{{ route('register') }}" class="text-decoration-none"><i class="bi bi-chevron-right me-1 small"></i> Register</a></li>
-                        @endauth
+            
+            .btn-primary {
+                background-color: var(--primary);
+                border-color: var(--primary);
+            }
+            
+            .btn-primary:hover {
+                background-color: #E64A19;
+                border-color: #E64A19;
+            }
+            
+            .bg-primary {
+                background-color: var(--primary) !important;
+            }
+            
+            .card {
+                border-radius: 8px;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .card-img-top {
+                height: 200px;
+                object-fit: cover;
+            }
+            
+            footer {
+                background-color: #333333;
+                color: white;
+            }
+        </style>
+
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <i class="bi bi-shop me-2 text-primary"></i>
+                    {{ config('app.name', 'Digital Marketplace') }}
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @php
+                                    $categories = \App\Models\Category::all();
+                                @endphp
+                                @foreach($categories as $category)
+                                    <li><a class="dropdown-item" href="{{ route('products.category', $category->slug) }}">{{ $category->name }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
                     </ul>
-                </div>
-                
-                <div class="col-lg-2 col-md-6">
-                    <h5 class="text-white fw-bold mb-4">Categories</h5>
-                    <ul class="list-unstyled footer-links">
-                        @php
-                            $footerCategories = \App\Models\Category::take(5)->get();
-                        @endphp
-                        @foreach($footerCategories as $category)
-                            <li class="mb-2">
-                                <a href="{{ route('products.category', $category->slug) }}" class="text-decoration-none">
-                                    <i class="bi bi-chevron-right me-1 small"></i> {{ $category->name }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <h5 class="text-white fw-bold mb-4">Newsletter</h5>
-                    <p class="text-muted mb-4">Subscribe to our newsletter to receive updates on new products, special offers, and promotions.</p>
-                    <form action="#" method="POST" class="mb-3">
-                        @csrf
-                        <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Your email address" required>
-                            <button class="btn btn-primary" type="submit">Subscribe</button>
-                        </div>
+                    <form class="d-flex me-3" action="{{ route('products.search') }}" method="GET">
+                        <input class="form-control me-2" type="search" name="query" placeholder="Search products..." aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
-                    <div class="contact-info text-muted">
-                        <div class="mb-2"><i class="bi bi-envelope me-2"></i> support@digitalmarketplace.com</div>
-                        <div class="mb-2"><i class="bi bi-telephone me-2"></i> (123) 456-7890</div>
-                        <div><i class="bi bi-geo-alt me-2"></i> 123 Market Street, Suite 456, San Francisco, CA 94103</div>
+                    <div class="d-flex align-items-center">
+                        <a href="{{ route('cart.index') }}" class="btn btn-outline-primary position-relative me-2">
+                            <i class="bi bi-cart"></i>
+                            @auth
+                                @php
+                                    $cartCount = \App\Models\CartItem::where('user_id', auth()->id())->sum('quantity');
+                                @endphp
+                                @if($cartCount > 0)
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ $cartCount }}
+                                    </span>
+                                @endif
+                            @endauth
+                        </a>
+                        @guest
+                            <a href="{{ route('login') }}" class="btn btn-sm btn-primary me-2">Login</a>
+                            <a href="{{ route('register') }}" class="btn btn-sm btn-outline-primary">Register</a>
+                        @else
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('orders.index') }}">My Orders</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('products.create') }}">Sell Product</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endguest
                     </div>
                 </div>
             </div>
-            
-            <hr class="mt-4 mb-3 border-secondary">
-            
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    <p class="text-muted mb-0">&copy; {{ date('Y') }} Digital Marketplace. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <div class="payment-methods">
-                        <i class="bi bi-credit-card fs-4 me-2 text-muted"></i>
-                        <i class="bi bi-paypal fs-4 me-2 text-muted"></i>
-                        <i class="bi bi-stripe fs-4 me-2 text-muted"></i>
-                        <i class="bi bi-wallet2 fs-4 me-2 text-muted"></i>
-                    </div>
-                </div>
-            </div>
+        </nav>
+
+        <!-- Content -->
+        <div id="app">
+            @yield('content')
         </div>
-    </footer>
-    
-    <!-- Back to Top Button -->
-    <a href="#" class="btn btn-primary rounded-circle shadow position-fixed bottom-0 end-0 m-4" id="back-to-top" style="display: none;">
-        <i class="bi bi-arrow-up"></i>
-    </a>
-    
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom Scripts -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const backToTopButton = document.getElementById('back-to-top');
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTopButton.style.display = 'block';
-                } else {
-                    backToTopButton.style.display = 'none';
-                }
-            });
-            
-            backToTopButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            
-            // Tooltips
-            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
-        });
-    </script>
-    
-    @stack('scripts')
-</body>
+
+        <!-- Footer -->
+        <footer class="py-5 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <h5 class="mb-3">About Us</h5>
+                        <p class="text-white-50">Digital Marketplace is a platform for buying and selling digital products. Find everything from software and e-books to templates and creative assets.</p>
+                    </div>
+                    <div class="col-md-2 mb-4 mb-md-0">
+                        <h5 class="mb-3">Quick Links</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="{{ route('home') }}" class="text-white-50 text-decoration-none">Home</a></li>
+                            <li class="mb-2"><a href="{{ route('products.index') }}" class="text-white-50 text-decoration-none">Products</a></li>
+                            <li class="mb-2"><a href="{{ route('dashboard') }}" class="text-white-50 text-decoration-none">Dashboard</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 mb-4 mb-md-0">
+                        <h5 class="mb-3">Categories</h5>
+                        <ul class="list-unstyled">
+                            @foreach($categories->take(4) as $category)
+                                <li class="mb-2"><a href="{{ route('products.category', $category->slug) }}" class="text-white-50 text-decoration-none">{{ $category->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="mb-3">Stay Updated</h5>
+                        <p class="text-white-50">Subscribe to our newsletter for the latest products and offers.</p>
+                        <form class="mb-3">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Your email address">
+                                <button class="btn btn-primary" type="submit">Subscribe</button>
+                            </div>
+                        </form>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="text-white-50 fs-5"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="text-white-50 fs-5"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="text-white-50 fs-5"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="text-white-50 fs-5"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4 border-secondary">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <p class="mb-0 text-white-50">&copy; {{ date('Y') }} Digital Marketplace. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="d-flex justify-content-center justify-content-md-end gap-3">
+                            <a href="#" class="text-white-50 text-decoration-none">Privacy Policy</a>
+                            <a href="#" class="text-white-50 text-decoration-none">Terms of Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
