@@ -1,42 +1,62 @@
 #!/bin/bash
 
-# Script to manage the Laravel server
+# Colors
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 
-function start_server() {
-  echo "Starting Laravel server..."
-  nohup ./start-laravel.sh > laravel.log 2>&1 &
-  echo "Server started in background. Check laravel.log for details."
-  echo "Access the server at: https://${REPL_SLUG}.${REPL_OWNER}.repl.co"
-}
-
-function stop_server() {
-  echo "Stopping Laravel server..."
-  pkill -f "php artisan serve" || echo "No server running."
-}
-
-function restart_server() {
-  stop_server
+# Function to start the server
+start_server() {
+  echo -e "${GREEN}Starting Laravel server on port 8080...${NC}"
+  # Kill any existing PHP server
+  pkill -f "php -S 0.0.0.0:8080" > /dev/null 2>&1
+  
+  # Start PHP server in background
+  nohup php -S 0.0.0.0:8080 -t public > server.log 2>&1 &
+  PID=$!
+  echo $PID > server.pid
+  
+  # Wait a moment to ensure the server starts
   sleep 2
-  start_server
-}
-
-function server_status() {
-  if pgrep -f "php artisan serve" > /dev/null; then
-    echo "Laravel server is running."
+  
+  # Check if server is running
+  if ps -p $PID > /dev/null; then
+    echo -e "${GREEN}✅ Server started successfully with PID: $PID${NC}"
+    echo -e "${YELLOW}Access your application at:${NC}"
+    echo -e "${GREEN}http://localhost:8080${NC}"
   else
-    echo "Laravel server is not running."
+    echo -e "${RED}❌ Failed to start server. See server.log for details.${NC}"
+    cat server.log
+    exit 1
   fi
 }
 
-function show_logs() {
-  if [ -f "laravel.log" ]; then
-    tail -n 50 laravel.log
+# Function to check server status
+check_status() {
+  if [ -f server.pid ] && ps -p $(cat server.pid) > /dev/null; then
+    echo -e "${GREEN}✅ Server is running with PID: $(cat server.pid)${NC}"
+    echo -e "${YELLOW}Access your application at:${NC}"
+    echo -e "${GREEN}http://localhost:8080${NC}"
   else
-    echo "Log file not found."
+    echo -e "${RED}❌ Server is not running${NC}"
   fi
 }
 
-# Main menu
+# Function to stop the server
+stop_server() {
+  if [ -f server.pid ]; then
+    PID=$(cat server.pid)
+    echo -e "${YELLOW}Stopping server with PID: $PID...${NC}"
+    kill $PID > /dev/null 2>&1
+    rm server.pid
+    echo -e "${GREEN}✅ Server stopped${NC}"
+  else
+    echo -e "${RED}❌ No running server found${NC}"
+  fi
+}
+
+# Command line parsing
 case "$1" in
   start)
     start_server
@@ -45,16 +65,14 @@ case "$1" in
     stop_server
     ;;
   restart)
-    restart_server
+    stop_server
+    start_server
     ;;
   status)
-    server_status
-    ;;
-  logs)
-    show_logs
+    check_status
     ;;
   *)
-    echo "Usage: $0 {start|stop|restart|status|logs}"
+    echo -e "Usage: $0 {start|stop|restart|status}"
     exit 1
     ;;
 esac

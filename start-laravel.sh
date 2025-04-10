@@ -1,27 +1,22 @@
 #!/bin/bash
 
-# Install dependencies if needed
-if [ ! -d "vendor" ]; then
-  composer install
+# Kill any existing PHP server
+pkill -f "php -S 0.0.0.0:8080" || true
+
+# Start PHP server in background
+nohup php -S 0.0.0.0:8080 -t public > server.log 2>&1 &
+SERVER_PID=$!
+echo $SERVER_PID > server.pid
+echo "Laravel server started on port 8080 with PID $SERVER_PID"
+
+# Wait a moment to ensure server starts
+sleep 2
+
+# Check if server is running
+if kill -0 $SERVER_PID 2>/dev/null; then
+  echo "Server is running successfully!"
+  echo "You can now access the application at http://localhost:8080"
+else
+  echo "Server failed to start. Check server.log for details."
+  cat server.log
 fi
-
-# Create storage link if needed
-if [ ! -L "public/storage" ]; then
-  php artisan storage:link
-fi
-
-# Generate the application key if not already set
-if ! grep -q "APP_KEY=" .env; then
-  php artisan key:generate
-fi
-
-# Ensure SQLite database exists
-touch database/database.sqlite
-chmod 777 database/database.sqlite
-chmod 777 database
-
-# Run database migrations
-php artisan migrate --force
-
-# Start the Laravel development server
-php artisan serve --host=0.0.0.0 --port=3000
