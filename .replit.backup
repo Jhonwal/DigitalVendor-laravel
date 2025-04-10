@@ -1,0 +1,73 @@
+run = ["./start-laravel.sh"]
+hidden = ["vendor", "node_modules", ".git"]
+
+[env]
+PHP_CLI_SERVER_WORKERS = "4"
+
+[[hints]]
+regex = "\\!\\[\\]\\((.*)\\)"
+message = "Image [$1](https://repl.it)"
+
+[nix]
+channel = "stable-24_05"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", ".gitignore"]
+
+[deployment]
+run = ["./start-laravel.sh"]
+deploymentTarget = "cloudrun"
+
+[languages]
+
+[languages.php]
+pattern = "**/*.php"
+syntax = "php"
+
+[languages.php.languageServer]
+start = "php vendor/bin/intelephense"
+
+[packager]
+language = "php"
+
+[packager.features]
+packageSearch = true
+guessImports = true
+
+[unitTest]
+language = "php"
+
+[debugger]
+support = true
+
+[debugger.interactive]
+transport = "localhost:0"
+startCommand = ["dap-php"]
+
+[debugger.interactive.initializeMessage]
+command = "initialize"
+type = "request"
+
+[debugger.interactive.initializeMessage.arguments]
+clientID = "replit"
+clientName = "replit.com"
+columnsStartAt1 = true
+linesStartAt1 = true
+locale = "en-us"
+pathFormat = "path"
+supportsInvalidatedEvent = true
+supportsProgressReporting = true
+supportsRunInTerminalRequest = true
+supportsVariablePaging = true
+supportsVariableType = true
+
+[debugger.interactive.launchMessage]
+command = "launch"
+type = "request"
+
+[debugger.interactive.launchMessage.arguments]
+stopOnEntry = false
+
+[auth]
+pageEnabled = true
+buttonEnabled = false
